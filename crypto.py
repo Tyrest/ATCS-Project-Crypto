@@ -8,17 +8,24 @@ ascii_Z = ord('Z')
 # Returns: string
 def encrypt_caesar(plaintext, offset):
     encrypted = ""
+    offset = offset % 26
     for ch in plaintext:
-        if ascii_a < ch < ascii_z:
-            
-        if ascii_A < ch < ascii_Z:
-
-    pass
+        ascii_ch = ord(ch)
+        if ascii_a < ascii_ch < ascii_z:
+            ascii_ch += offset
+            if ascii_ch > ascii_z:
+                ascii_ch -= 26
+        if ascii_A < ascii_ch < ascii_Z:
+            ascii_ch += offset
+            if ascii_ch > ascii_Z:
+                ascii_ch -= 26
+        encrypted += chr(ascii_ch)
+    return encrypted
 
 # Arguments: string, integer
 # Returns: string
 def decrypt_caesar(ciphertext, offset):
-    pass
+    return encrypt_caesar(ciphertext, 26 - (offset))
 
 # Vigenere Cipher
 # Arguments: string, string
@@ -53,8 +60,10 @@ def decrypt_mhkc(ciphertext, private_key):
     pass
 
 def main():
+    print(encrypt_caesar('pytHON!*(@#&!$(!()$    . . .. . ', 55))
+    print(decrypt_caesar('sbwKRQ!*(@#&!$(!()$    . . .. .', 55))
     # Testing code here
     pass
 
-if __name__ == ‘__main__’:
+if __name__ == '__main__':
     main()
