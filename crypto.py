@@ -29,7 +29,7 @@ def encrypt_vigenere(plaintext, keyword):
     key = (len(plaintext)//len(keyword) + 1)*keyword
     key = key[:len(plaintext)]
 
-    for i in range(0, len(plaintext)):
+    for i in range(len(plaintext)):
         encrypted += encrypt_caesar(plaintext[i], ord(key[i]) - ascii_A)
     
     return encrypted
