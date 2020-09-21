@@ -31,7 +31,14 @@ def decrypt_caesar(ciphertext, offset):
 # Arguments: string, string
 # Returns: string
 def encrypt_vigenere(plaintext, keyword):
-    pass
+    encrypted = ''
+    key = (len(plaintext)//len(keyword) + 1)*keyword
+    key = key[:len(plaintext)]
+
+    for i in range(len(plaintext)):
+        encrypt_caesar(plaintext[i], ord(key[i]) - ascii_A) 
+
+
 
 # Arguments: string, string
 # Returns: string
