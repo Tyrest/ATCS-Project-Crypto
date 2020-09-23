@@ -1,5 +1,7 @@
 ascii_A = ord('A')
 ascii_Z = ord('Z')
+import random
+import math
 
 # Caesar Cipher
 # Arguments: string, integer
@@ -34,18 +36,22 @@ def encrypt_vigenere(plaintext, keyword):
     
     return encrypted
 
-
-
 # Arguments: string, string
 # Returns: string
 def decrypt_vigenere(ciphertext, keyword):
-    pass
+    new_keyword = ''
+    for char in keyword:
+        new_keyword += chr(ascii_Z-ord(char)+ascii_A+1)
+    return encrypt_vigenere(ciphertext, new_keyword)
 
 # Merkle-Hellman Knapsack Cryptosystem
 # Arguments: integer
 # Returns: tuple (W, Q, R) - W a length-n tuple of integers, Q and R both integers
 def generate_private_key(n=8):
-    pass
+    seq = [1]
+    for i in range(n):
+        seq.append(random.randint(sum(seq), math.inf))
+    return seq
 
 # Arguments: tuple (W, Q, R) - W a length-n tuple of integers, Q and R both integers
 # Returns: tuple B - a length-n tuple of integers
@@ -66,6 +72,8 @@ def main():
     print(encrypt_caesar('PYTHON!*(@#&!$(!()$    . . .. . ', 55))
     print(decrypt_caesar('SBWKRQ!*(@#&!$(!()$    . . .. .', 55))
     print(encrypt_vigenere('ATTACKATDAWN', 'LEMON'))
+    print(decrypt_vigenere('LXFOPVEFRNHR', 'LEMON'))
+    print(generate_private_key())
     # Testing code here
 
 if __name__ == '__main__':
