@@ -81,11 +81,21 @@ def encrypt_mhkc(plaintext, B):
     
     return encrypted
 
+# Returns modular inverse of r mod m using Euclidean Algorithm.
+def mod_inverse(r, m):
+    r_seq = [r,m]
+    s_seq = [1,0]
+    while r_seq[len(r_seq)-1] != 0:
+        i = len(r_seq)-1
+        q_i = int(r_seq[i-1]/r_seq[i])
+        r_seq.append(r_seq[i-1]%r_seq[i])
+        s_seq.append(s_seq[i-1]-q_i*s_seq[i])
+    return s_seq[len(s_seq)-2] % m
 # Arguments: list of integers, tuple B - a length-n tuple of integers
 # Returns: bytearray or str of plaintext
 def decrypt_mhkc(ciphertext, private_key):
     W, Q, R = private_key
-    # S is the modulo inverse of R modulo Q
+    S = mod_inverse(R,Q)
 
 
 def main():
@@ -99,6 +109,7 @@ def main():
     print(public_key)
     encrypted = encrypt_mhkc("HELLO", public_key)
     print(encrypted)
+    print(mod_inverse(3,29))
     # Testing code here
 
 if __name__ == '__main__':
