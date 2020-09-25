@@ -96,7 +96,19 @@ def mod_inverse(r, m):
 # Returns: bytearray or str of plaintext
 def decrypt_mhkc(ciphertext, private_key):
     W, Q, R = private_key
+    decrypted = ""
     S = mod_inverse(R,Q)
+    for C in ciphertext:
+    	C_p = C * S % Q
+    	C_decrypted = []
+    	for w in W:
+    		if w < C_p:
+    			C_decrypted.append("1")
+    			C_p -= w
+    		else:
+    			C_decrypted.append("0")
+    	decrypted += chr(int("".join(reversed(C_decrypted)), 2)) 
+    return decrypted
 
 
 def main():
@@ -111,6 +123,8 @@ def main():
     encrypted = encrypt_mhkc("HELLO", public_key)
     print(encrypted)
     print(mod_inverse(3,29))
+    print(decrypt_mhkc(encrypted, private_key))
+
     # Testing code here
 
 if __name__ == '__main__':
