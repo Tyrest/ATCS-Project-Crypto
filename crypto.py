@@ -58,7 +58,7 @@ def generate_private_key(n=8):
     return (tuple(W), Q, R)
 
 # Arguments: tuple (W, Q, R) - W a length-n tuple of integers, Q and R both integers
-# Returns: tuple B - a length-n tuple of integers
+# Returns: B - a length-n tuple of integers
 def create_public_key(private_key):
     W, Q, R = private_key
     B = []
@@ -66,7 +66,7 @@ def create_public_key(private_key):
         B.append(R*i%Q)
     return tuple(B)
 
-# Arguments: string, tuple (W, Q, R)
+# Arguments: string, tuple B
 # Returns: list of integers
 def encrypt_mhkc(plaintext, B):
     encrypted = []
@@ -91,7 +91,8 @@ def mod_inverse(r, m):
         r_seq.append(r_seq[i-1]%r_seq[i])
         s_seq.append(s_seq[i-1]-q_i*s_seq[i])
     return s_seq[len(s_seq)-2] % m
-# Arguments: list of integers, tuple B - a length-n tuple of integers
+    
+# Arguments: list of integers, private key (W, Q, R) with W a tuple.
 # Returns: bytearray or str of plaintext
 def decrypt_mhkc(ciphertext, private_key):
     W, Q, R = private_key
