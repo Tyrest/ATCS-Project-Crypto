@@ -49,7 +49,7 @@ def decrypt_vigenere(ciphertext, keyword):
 # Returns: tuple (W, Q, R) - W a length-n tuple of integers, Q and R both integers
 def generate_private_key(n=8):
     W = [random.randint(1, 10)]
-    for i in range(n):
+    for i in range(n - 1):
         W.append(random.randint(sum(W) + 1, sum(W) * 2))
     Q = random.randint(sum(W) + 1, sum(W) * 2)
     R = random.randint(2, Q-1)
@@ -72,8 +72,8 @@ def encrypt_mhkc(plaintext, B):
     encrypted = []
 
     for ch in plaintext:
-        A = list(bin(ord(ch))[2:])
-        A = (len(B) - len(A)) * [0] + A
+        print(list("{0:08b}".format(ord(ch))))
+        A = list("{0:08b}".format(ord(ch)))
         C = []
         for i in range(len(A)):
             C.append(int(A[i]) * int(B[i]))
@@ -99,15 +99,15 @@ def decrypt_mhkc(ciphertext, private_key):
     decrypted = ""
     S = mod_inverse(R,Q)
     for C in ciphertext:
-    	C_p = C * S % Q
-    	C_decrypted = []
-    	for w in W:
-    		if w < C_p:
-    			C_decrypted.append("1")
-    			C_p -= w
-    		else:
-    			C_decrypted.append("0")
-    	decrypted += chr(int("".join(reversed(C_decrypted)), 2)) 
+        C_p = C * S % Q
+        C_decrypted = []
+        for w in reversed(W):
+            if w <= C_p:
+                C_decrypted.append("1")
+                C_p -= w
+            else:
+                C_decrypted.append("0")
+        decrypted += chr(int("".join(reversed(C_decrypted)), 2))
     return decrypted
 
 
