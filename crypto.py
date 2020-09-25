@@ -72,7 +72,6 @@ def encrypt_mhkc(plaintext, B):
     encrypted = []
 
     for ch in plaintext:
-        print(list("{0:08b}".format(ord(ch))))
         A = list("{0:08b}".format(ord(ch)))
         C = []
         for i in range(len(A)):
@@ -112,10 +111,10 @@ def decrypt_mhkc(ciphertext, private_key):
 
 
 def main():
-    # print(encrypt_caesar('PYTHON!*(@#&!$(!()$    . . .. . ', 55))
-    # print(decrypt_caesar('SBWKRQ!*(@#&!$(!()$    . . .. .', 55))
-    # print(encrypt_vigenere('ATTACKATDAWN', 'LEMON'))
-    # print(decrypt_vigenere('LXFOPVEFRNHR', 'LEMON'))
+    print(encrypt_caesar('PYTHON!*(@#&!$(!()$    . . .. . ', 55))
+    print(decrypt_caesar('SBWKRQ!*(@#&!$(!()$    . . .. .', 55))
+    print(encrypt_vigenere('ATTACKATDAWN', 'LEMON'))
+    print(decrypt_vigenere('LXFOPVEFRNHR', 'LEMON'))
     private_key = generate_private_key()
     print(private_key)
     public_key = create_public_key(private_key)
@@ -124,8 +123,6 @@ def main():
     print(encrypted)
     print(mod_inverse(3,29))
     print(decrypt_mhkc(encrypted, private_key))
-
-    # Testing code here
 
 if __name__ == '__main__':
     main()
