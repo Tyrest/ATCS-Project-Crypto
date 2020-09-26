@@ -1,7 +1,7 @@
 import random
 import math
 
-# Get ASCII value for A and Z
+# ASCII value for A and Z
 ascii_A = ord('A')
 ascii_Z = ord('Z')
 
@@ -14,6 +14,8 @@ def encrypt_caesar(plaintext, offset):
 
     for ch in plaintext:
         ascii_ch = ord(ch)
+
+        # only change a-z characters
         if ascii_A <= ascii_ch <= ascii_Z:
             ascii_ch += offset
             if ascii_ch > ascii_Z:
@@ -32,6 +34,8 @@ def decrypt_caesar(ciphertext, offset):
 # Returns: string
 def encrypt_vigenere(plaintext, keyword):
     encrypted = ''
+
+    # copy keyword to length of plaintext
     key = (len(plaintext) // len(keyword) + 1) * keyword
     key = key[:len(plaintext)]
 
@@ -116,6 +120,7 @@ def decrypt_mhkc(ciphertext, private_key):
         C_p = C * S % Q
         C_decrypted = []
 
+        # Use greedy algorithm, iterate from largest element
         for w in reversed(W):
             if w <= C_p:
                 C_decrypted.append("1")
