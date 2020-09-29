@@ -49,6 +49,7 @@ def encrypt_vigenere(plaintext, keyword):
 def decrypt_vigenere(ciphertext, keyword):
     new_keyword = ''
 
+    # repeat encrypt process with shifted keyword
     for char in keyword:
         new_keyword += chr(ascii_Z - ord(char) + ascii_A + 1)
 
@@ -95,12 +96,13 @@ def encrypt_mhkc(plaintext, B):
     
     return encrypted
 
-# Returns modular inverse of r mod m using Euclidean Algorithm.
+# Returns modular inverse of r mod m.
 # Do assuming GCD(r, m) = 1
 def mod_inverse(r, m):
     r_seq = [r, m]
     s_seq = [1, 0]
 
+    # Extended Euclidean Algorithm
     while r_seq[len(r_seq) - 1] != 0:
         i = len(r_seq) - 1
         q_i = int(r_seq[i - 1] / r_seq[i])
